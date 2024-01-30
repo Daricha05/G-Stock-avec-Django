@@ -1,0 +1,33 @@
+{% extends "log.html" %}
+
+{% block title %} Register | Page {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mb-5">INSCRIPTION</h1>
+
+<form action="{% url 'register' %}" method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        {{ form.username }}
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        {{ form.email }}
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Password</label>
+        {{ form.password1 }}
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Confirm</label>
+        {{ form.password2 }}
+    </div>
+    {{ form.errors }}
+    <input type="submit" class="btn btn-primary w-100 mb-2" value="S'inscrire">
+</form>
+<p>j'ai déjà inscrire, <a href="{% url 'login' %}">Connectez-vous</a></p>
+
+{% endblock %}

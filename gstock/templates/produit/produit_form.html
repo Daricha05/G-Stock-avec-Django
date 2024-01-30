@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+
+{% block title %}Formulaire{% endblock %}
+
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-end">
+    <a href="{% url 'cat_new' %}" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+        data-bs-target="#CategoryModal">Ajouter category</a>
+    <a href="{% url 'unite_new' %}" class="btn btn-primary btn-sm mx-3" data-bs-toggle="modal"
+        data-bs-target="#UniteModal">Ajouter unité</a>
+    <a href="" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        data-bs-whatever="@mdo">Ajouter fournisseur</a>
+</div>
+<div class="d-flex align-items-center justify-content-center shadow" style="height: 70vh;">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom produit</label>
+            {{ form.nom }}
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="prix" class="form-label">Prix</label>
+                {{ form.prix }}
+            </div>
+            <div class="col">
+                <label for="qte" class="form-label">Qté</label>
+                {{ form.quantite }}
+            </div>
+            <div class="col">
+                <label for="seuil_minimum" class="form-label">Minimum</label>
+                {{ form.seuil_minimum }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Déscription</label>
+            {{ form.description }}
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <label for="caterory" class="form-label">Categorie</label>
+                {{ form.category }}
+            </div>
+            <div class="col">
+                <label for="unite" class="form-label">Unité</label>
+                {{ form.unite }}
+            </div>
+            <div class="col">
+                <label for="fournisseur" class="form-label">Fournisseur</label>
+                {{ form.fournisseur }}
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="{% url 'produit_list' %}" class="btn btn-danger w-25">Retour</a>
+            <input type="submit" class="btn btn-primary w-50" value="Valider">
+        </div>
+    </form>
+</div>
+
+
+<!-- Modal Fournisseur -->
+
+<div class="modal fade" id="FournisseurModal" tabindex="-1" aria-labelledby="CategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'custom_new' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom category</label>
+                        {{ formc }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary w-100" value="Valider">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Category -->
+
+<div class="modal fade" id="CategoryModal" tabindex="-1" aria-labelledby="CategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'cat_new' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom category</label>
+                        {{ form.nom }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary w-100" value="Valider">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Unite -->
+
+<div class="modal fade" id="UniteModal" tabindex="-1" aria-labelledby="UniteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'unite_new' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Unite</label>
+                        {{ form.nom }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary w-100" value="Valider">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Fournisseur -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'custom_new' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nom" class="col-form-label">Nom Fournisseur</label>
+                        <input type="text" class="form-control" id="nom" name="nom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adress" class="col-form-label">Adresse</label>
+                        <input type="text" class="form-control" id="adress" name="adress" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact" class="col-form-label">Contact</label>
+                        <input type="text" class="form-control" id="contact" name="phone" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

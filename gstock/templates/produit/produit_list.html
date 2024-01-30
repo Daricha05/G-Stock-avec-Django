@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}Liste produit{% endblock %}
+
+{% block content %}
+
+<div class="dropdown-divider border-warning"></div>
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="fw-bold mb-0">Liste des produits disponible</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'produit_new' %}" class="btn btn-primary btn-sm me-3">
+                <i class="fas fa-folder-plus"></i> Nouveau Produit
+            </a>
+        </div>
+    </div>
+</div>
+<div class="dropdown-divider border-warning"></div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th class="bg-warning text-light text-center">Qté</th>
+                    <th class="bg-danger text-light text-center">Minimum</th>
+                    <th>Category</th>
+                    <th>Unite</th>
+                    <th>Fournisseur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.nom }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td class="table-warning text-center fw-bold">{{ produit.quantite }}</td>
+                    <td class="table-danger text-center fw-bold">{{ produit.seuil_minimum }}</td>
+                    <td>{{ produit.category }}</td>
+                    <td>{{ produit.unite }}</td>
+                    <td>{{ produit.fournisseur }}</td>
+                    <td>
+                        <a href="{% url 'produit_edit' produit.pk %}" class="text-primary me-2 editBtn"
+                            title="Modifier"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'produit_delete' produit.pk %}" class="text-danger me-2" title="Supprimer"
+                            onclick="return confirm('Vous étes sur de le supprimer ?')"><i
+                                class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

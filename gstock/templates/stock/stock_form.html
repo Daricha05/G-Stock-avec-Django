@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Formulaire{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="mt-5 p-5 w-50 mx-auto">
+    <form action="" method="post" class="shadow p-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="d-flex align-items-center justify-content-between pt-3">
+            <input type="submit" class="btn btn-primary w-50" value="Valider">
+            <a href="{% url 'stock_list' %}" class="btn btn-danger w-25">Retour</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

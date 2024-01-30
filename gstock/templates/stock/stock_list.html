@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block title %}Liste Stock{% endblock %}
+
+{% block content %}
+
+<div class="dropdown-divider border-warning"></div>
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="fw-bold mb-0">Mouvement de transaction de stock</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'stock_new' %}" class="btn btn-success btn-sm">
+                <i class="fas fa-folder-plus me-2"></i>Nouveau transaction
+            </a>
+        </div>
+    </div>
+</div>
+<div class="dropdown-divider border-warning"></div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="row gx-5">
+    <div class="table-responsive col-6 col-md-4" style="margin-top: 100px; height: 60vh;">
+        <table class="table table-hover caption-top">
+            <caption class="fs-3">Etat de stock</caption>
+            <thead class="sticky-top">
+                <tr>
+                    <th class="bg-primary text-light text-center">Nom</th>
+                    <th class="bg-warning text-light text-center">Qté</th>
+                    <th class="bg-danger text-light text-center">Min</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.nom }}</td>
+                    <td class="table-warning text-center">{% if produit.quantite == produit.seuil_minimum %}
+                        <strong>En rupture - {{ produit.quantite }}</strong> {% else %} {{ produit.quantite }} {% endif %}
+                    <td class="table-danger text-center fw-bold">{{ produit.seuil_minimum }}</td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive col-sm-6 col-md-8">
+        <table class="table table-hover" id="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th class="text-center text-light bg-warning">Qté</th>
+                    <th>Type de transaction</th>
+                    <th class="bg-success text-light">Date de transaction</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.produit }}</td>
+                    <td class="table-warning text-center fw-bold">{{ stock.quantite }}</td>
+                    <td>{{ stock.get_type_transaction_display }}</td>
+                    <td class="table-success">{{ stock.date_transaction }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
